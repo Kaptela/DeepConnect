@@ -9,9 +9,12 @@ from django.forms import BaseModelForm
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.core import serializers
 from django.db.models import Q
+from datetime import datetime
+from django.utils.timesince import timesince
+from django.contrib.auth import logout
 
 from .forms import LoginForm, SignUpForm
 from .models import UserInventory, UserChoosedItem, Helmet, Chestplate, Legging, Boots, QuestNode, QuestEdge, UserLikes, NodeUser, SkillNode, SkillEdge, SkillUser
@@ -27,11 +30,10 @@ class MainView(TemplateView):
         
         if user.is_authenticated:
             
-            user_likes, d = UserLikes.objects.get_or_create(user=user)  # UserLikes — ваша модель
+            user_likes, d = UserLikes.objects.get_or_create(user=user)
             liked_users = user_likes.likes.all()
             print('user_likes: ', user_likes)
 
-            # Фильтруем пользователей, которые лайкнули текущего пользователя
             mutual_likes = []
             for liked_user in liked_users:
                 liked_user_likes, c = UserLikes.objects.get_or_create(user=liked_user)
@@ -49,7 +51,8 @@ class MainView(TemplateView):
             context.update(
                 user_invontory = UserInventory.objects.filter(user=user).first(),
                 user_choosed_items = UserChoosedItem.objects.filter(user=user).first(),
-                user_likes = mutual_likes
+                user_likes = mutual_likes,
+                user_age = timesince(user.date_of_birth, datetime.now())
             )
             
             if context['user_choosed_items']:
@@ -103,6 +106,10 @@ class RegisterView(CreateView):
             SignUpForm = self.form_class
         )
         return context
+
+def custom_logout_view(request):
+    logout(request)
+    return redirect('/')
     
 @csrf_exempt
 @require_POST

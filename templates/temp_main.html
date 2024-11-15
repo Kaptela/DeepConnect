@@ -246,11 +246,9 @@
         console.log(all_chats)
         all_chats.empty();
 
-        // Пройтись по каждому элементу
         all_chats.each(function() {
-            const to_user = $(this).attr('user-username'); // Получаем значение атрибута
+            const to_user = $(this).attr('user-username');
             $(this).on('click', function() {
-                // Устанавливаем WebSocket с правильным URL
                 const chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/{{user.username}}_" + to_user + "/");
 
                 chatSocket.onopen = function(e) {
@@ -261,7 +259,6 @@
                     console.log("Something unexpected happened!");
                 };
 
-                // Обработка ввода сообщения
                 const messageInput = document.querySelector("#id_message_send_input");
                 const messageSendButton = document.querySelector("#id_message_send_button");
                 const messageContainer = document.querySelector("#id_chat_item_container");
@@ -284,12 +281,11 @@
                                 username: "{{user.username}}",
                                 time: time
                             }));
-                            messageInput.value = ""; // Очищаем поле ввода
+                            messageInput.value = "";
                         }
                     };
                 }
 
-                // Обработка полученного сообщения
                 chatSocket.onmessage = function(e) {
                     const data = JSON.parse(e.data);
                     const div = document.createElement("div");
@@ -300,7 +296,6 @@
                         <span class="message-timestamp">${data.time}</span>
                     </div>`;
                     messageContainer.appendChild(div);
-                    // Скроллим вниз при новом сообщении
                     messageContainer.scrollTop = messageContainer.scrollHeight;
                 };
             });

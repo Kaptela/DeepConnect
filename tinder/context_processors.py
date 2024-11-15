@@ -7,10 +7,6 @@ def main(request):
             'header' : 'shared/header.html',
             'login' : 'page/login.html',
             'register' : 'page/register.html',
-            'skilltree' : 'page/skilltree',
-            'chat' : 'page/chat.html',
-            'tinder' : 'page/tinder.html',
-            'profile' : 'page/profile.html',
         }
     }
     

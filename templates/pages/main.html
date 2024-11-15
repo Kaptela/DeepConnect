@@ -40,10 +40,10 @@
                 {% for liked_user in user_likes %}
                 <div class="chat_user_item mx-auto">
                     <div class="row border rounded w-100 btn justify-content-center align-items-center m-0 chatsss" user-username="{{liked_user.username}}">
-                        <div class="col-3">
-                            <img src="" alt="" class="img-fluid rounded-circle">
-                        </div>
-                        <div class="col-8">
+<!--                        <div class="col-3">-->
+<!--                            <img src="" alt="" class="img-fluid rounded-circle">-->
+<!--                        </div>-->
+                        <div class="col-12">
                             <h4 class="p-0 m-0">{{ liked_user }}</h4>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
             <div class="chat__item__container" id="id_chat_item_container">
 
             </div>
-            <div class="chat-input-container">
+            <div class="chat-input-container" style="margin-bottom: 70px;">
                 <input type="text" id="id_message_send_input" placeholder="Type your message..." />
                 <button type="submit" id="id_message_send_button"><i class="fas fa-paper-plane"></i> Send</button>
             </div>
@@ -88,6 +88,7 @@
             <div class="row mx-auto align-items-center"  style="width: 100%; height: auto;">
                 <div class="col-6 d-flex flex-column justify-content-center align-items-center">
                     <h5 class="m-0 p-0  border rounded p-2">{{user.name}} {{user.lastname}} - {{user_age}}</h5>
+                    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
                     <img class="btn" data-bs-toggle="modal" data-bs-target="#modal"
                         src="{% if user.sex == 'Female' %} {% static 'images/woman_body.png' %} {% else %} {% static 'images/man_body.png' %} {% endif %}"
                         style="height: auto; width: 100%" alt="">
@@ -96,7 +97,7 @@
                     <div class="d-flex flex-column justify-content-between align-items-center">
                         {% csrf_token %}
                         <div class="accordion" id="accordionExample">
-                            <div class="accordion-item w-50 mx-auto">
+                            <div class="accordion-item w-75 mx-auto">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -126,7 +127,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion-item w-50 mx-auto">
+                            <div class="accordion-item w-75 mx-auto">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -158,7 +159,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion-item w-50 mx-auto">
+                            <div class="accordion-item w-75 mx-auto">
                                 <h2 class="accordion-header" id="headingThree">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
@@ -190,7 +191,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion-item w-50 mx-auto">
+                            <div class="accordion-item w-75 mx-auto">
                                 <h2 class="accordion-header" id="headingFour">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">

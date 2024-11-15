@@ -167,3 +167,5 @@ CHANNEL_LAYERS = {
 }
 
 ASGI_APPLICATION = 'deepconnect.asgi.application'
+
+LOGOUT_REDIRECT_URL = '/'

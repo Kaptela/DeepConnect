@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import MainView, SignInView, RegisterView, pick_item, get_skill_graph_data, add_attr, remove_attr, get_quest_graph_data, get_cards, like_card, dislike_card
-
+from .views import MainView, SignInView, RegisterView, pick_item, get_skill_graph_data, add_attr, remove_attr, get_quest_graph_data, get_cards, like_card, dislike_card, custom_logout_view
 urlpatterns = [
     path('', MainView.as_view(), name='main'),
     path('login/', SignInView.as_view(), name='signin'),
@@ -15,4 +14,5 @@ urlpatterns = [
     
     path('api/like-card/<int:liked_user_id>/', like_card, name="like-card"),
     path('api/dislike-card/<int:disliked_user_id>/', dislike_card, name='dislike-card'),
+    path('logout/', custom_logout_view, name='logout'),
 ]
