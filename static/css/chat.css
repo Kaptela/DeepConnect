@@ -1,0 +1,114 @@
+.chat-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.chat-header {
+    text-align: center;
+    background-color: #075e54;
+    color: #fff;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chat-header h1 {
+    font-size: 24px;
+}
+
+.chat-logout {
+    text-align: right;
+    padding: 10px;
+}
+
+.chat-logout a {
+    text-decoration: none;
+    color: #075e54;
+    font-weight: bold;
+}
+
+.chat-logout a:hover {
+    text-decoration: underline;
+}
+
+.chat__item__container {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 10px;
+    height: 500px;
+    max-height: 500px;
+    /* Set a maximum height for the chat container */
+    overflow-y: auto;
+    /* Add a vertical scrollbar when needed */
+}
+
+.chat-input-container {
+    display: flex;
+    align-items: center;
+}
+
+#id_message_send_input {
+    flex: 1;
+    /* Take up available space */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#id_message_send_button {
+    padding: 5px 10px;
+    background-color: #075e54;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.chat-message {
+    background-color: #e4f9f5;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    position: relative;
+}
+
+.chat-message.right {
+        background-color: black;
+    width: 80%;
+    float: right;
+    clear: both;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.chat-message.left {
+    background-color: #075e54;
+    width: 80%;
+    float: left;
+    clear: both;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.chat-message span {
+    font-weight: bold;
+    color: white;
+}
+
+.message-timestamp {
+    font-size: 10px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.message-username {
+    font-size: 12px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}

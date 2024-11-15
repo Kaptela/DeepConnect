@@ -1,0 +1,41 @@
+{% load static %}
+
+<div class="modal fade modal-dialog modal-dialog-scrollable" id="modal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+          <div class="card p-4" style="width: 350px; background-color: #efefef; border: none; cursor: pointer; transition: all 0.5s;">
+            <div class=" image d-flex flex-column justify-content-center align-items-center"> 
+              <button class="btn btn-secondary"> 
+                {% if user.picture %}
+                <img src="{{ user.picture.url }}" height="100" width="100" />
+                {% else %}
+                <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" />
+                {% endif %}
+              </button> 
+              <span class="name mt-3">{{user.name}} {{user.lastname}}</span> 
+              <div class="d-flex flex-column justify-content-center align-items-center gap-2"> 
+                <span class="idd1">id_{{user.id}}</span> 
+                <span><i class="fa fa-copy"></i></span> 
+                <span class="idd1">Email {{user.email}}</span>
+                <span class="idd1">Sex {{user.sex}}</span>
+                <span class="idd1">Phone {{user.phone}}</span>
+                <span class="idd1">Date of birth {{user.date_of_birth}}</span>
+              </div>
+              <div class="text mt-3"> 
+                <span>{{user.description}}</span> 
+              </div>
+              <div class=" px-2 rounded mt-4 date "> <span class="join">Join date{{user.date_joined}}</span> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

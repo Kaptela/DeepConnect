@@ -1,0 +1,58 @@
+{% load static %}
+<div class="tab-pane fade show" id="register" role="tabpanel" aria-labelledby="register-tab"
+    style="background-color: white !important;">
+    <form action="{% url 'signup' %}" method="POST" class="mt-5 mb-5 pb-5">
+    {% csrf_token %}
+    <div class="d-flex align-items-center overflow-auto"  style="width: 26rem; height:auto;">
+            <div class="mt-5 mb-5 pb-5">
+
+                <h3 class="fw-normal mb-4" style="letter-spacing: 1px;">Register</h3>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="email_reg" required>Email address</label>
+                    <input type="email" name="email" id="email_reg" class="form-control form-control-lg required_forms_controls" required/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="username" required>Username:</label>
+                    <input type="text" name="username" id="username" class="form-control form-control-lg required_forms_controls" required/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="name" required>Name:</label>
+                    <input type="text" name="name" id="name" class="form-control form-control-lg required_forms_controls" required/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="lastname" required>Lastname:</label>
+                    <input type="text" name="lastname" id="lastname" class="form-control form-control-lg required_forms_controls" required/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="phone" required>Phone:</label>
+                    <input type="text" name="phone_0" id="phone" size="13" class="form-control form-control-lg required_forms_controls" required/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="id_date_of_birth" required>Date of birth:</label>
+                    <input type="date" name="date_of_birth" id="id_date_of_birth" class="form-control form-control-lg required_forms_controls" required/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="id_password1" required>Password</label>
+                    <input type="password" name="password1" id="id_password1" class="form-control form-control-lg required_forms_controls" autocomplete="new-password" required/>
+                </div>
+                <ul>
+                    <li>Your password can’t be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters.</li>
+                    <li>Your password can’t be a commonly used password.</li>
+                    <li>Your password can’t be entirely numeric.</li>
+                </ul>
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="id_password2" required>Password</label>
+                    <input type="password" name="password2" id="id_password2" class="form-control form-control-lg required_forms_controls" aria-describedby="id_password2_helptext" autocomplete="new-password" required/>
+                    <span class="helptext" id="id_password2_helptext">Enter the same password as before, for verification.</span>
+                </div>
+                <div class="pt-1">
+                    <div  id="next_btn" class="btn btn-info btn-lg btn-block">Next</div>
+                </div>
+                
+            </div>
+        </div>
+        {% include 'modal/profile_creation.html' %}
+    </form>
+</div>
+

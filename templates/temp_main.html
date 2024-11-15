@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tindertag %}
+
+{% block content %}
+<div class="tab-content" id="myTabContent">
+    {% if user.is_authenticated %}
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"
+        style="background-color: white !important;">
+        <div class="tinder-body">
+            <div class="tinder h-100 mt-0 pt-0">
+
+                <div class="tinder--cards">
+                </div>
+                <div class="tinder--buttons">
+                    <button class="btn" id="nope"><img src="{% static 'images/close.png' %}" class="img-fluid" alt=""></button>
+                    <button class="btn" id="love"><img src="{% static 'images/heart.png' %}" class="img-fluid" alt=""></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade pt-1 pb-4" id="chat" role="tabpanel" aria-labelledby="chat-tab"
+        style="background-color: white;">
+        <div class="w-100 h-100">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h1>Chit-Chat <i class="fas fa-comment"></i></h1>
+                </div>
+                <div class="chat-logout">
+                    {% if user.is_authenticated %}
+                    <div style="float: left;font-weight: bold; color: #036358;">{{ user|title }} </div>
+                </div>
+                <div style="clear: both;"></div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="chats_container" id="all_chats">
+            <div class="chat_user_item">
+                {% for liked_user in user_likes.likes.all %}
+                <button class="row border rounded mx-auto btn w-100 justify-content-center align-items-center chatsss"
+                    user-username="{{liked_user.username}}">
+                    <div class="col-3">
+                        <img src="" alt="" class="img-fluid rounded-circle">
+                    </div>
+                    <div class="col-8">
+                        <h4 class="p-0 m-0">{{liked_user.name}} {{liked_user.lastname}}</h4>
+                    </div>
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="" id="concrete_chat" style="display: None;">
+            <div class="chat__item__container" id="id_chat_item_container">
+
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="id_message_send_input" placeholder="Type your message..." />
+                <button type="submit" id="id_message_send_button"><i class="fas fa-paper-plane"></i> Send</button>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade pt-1 pb-4" id="notes" role="tabpanel" aria-labelledby="notes-tab"
+        style="background-color: white;">
+        <div class="d-flex flex-row justify-content-center align-items-center w-100 h-100">
+            <div id="popin"></div>
+            <div id="skilltree"></div>
+            <div id="panel">Crédits : <span id="wallet"></span></div>
+        </div>
+    </div>
+    
+    <div class="tab-pane fade pt-1 pb-4" id="project" role="tabpanel" aria-labelledby="project-tab"
+        style="background-color: white;">
+        <div class="d-flex flex-row w-100 h-100">
+            <div id="popin2"></div>
+            <div id="questtree"></div>
+            <div id="panel">Crédits : <span id="wallet2"></span></div>
+        </div>
+        {% include 'modal/questmodal.html' %}
+    </div>
+    
+    <div class="tab-pane fade pt-1 pb-4" id="collection" role="tabpanel" aria-labelledby="collection-tab"
+        style="background-color: white;">
+        {% include 'modal/modal.html' %}
+        <div class="d-flex flex-row justify-content-center align-items-center" style="width: 100%; height:auto;">
+            <div class="row w-100">
+                <div class="col-6 d-flex flex-column justify-content-center align-items-center">
+                    <h5 class="m-0 p-0  border rounded p-2">{{user.name}} {{user.lastname}} - {{user_age}}</h5>
+                    <img class="btn" data-bs-toggle="modal" data-bs-target="#modal"
+                        src="{% if user.sex == 'Female' %} {% static 'images/woman_body.png' %} {% else %} {% static 'images/man_body.png' %} {% endif %}"
+                        style="height: auto; width: 100%" alt="">
+                </div>
+                <div class="col-6">
+                    <div class="d-flex flex-column justify-content-between align-items-center">
+                        {% csrf_token %}
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item w-50">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        {% if user_choosed_items.helmet %}
+                                        <img src="{{ user_choosed_items.helmet.skin.url }}" class="img-fluid" alt="">
+                                        {% else %}
+                                        <img src="{% static 'images/helmet.png' %}" class="img-fluid" alt="">
+                                        {% endif %}
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        {% for item in user_invontory.helmets.all %}
+                                        {{item.item_name}}
+                                        <div class="row">
+                                            <div class="col-4 p-0 m-0">
+                                                <img src="{{ item.skin.url }}" alt="" class="img-fluid">
+                                                <button class="btn btn-primary pick-btn" item-type="helmet" item-id="{{item.id}}" {% if item.id == user_choosed_items.helmet.id %} disabled {% endif %}>Pick</button>
+                                            </div>
+                                            <div class="col-6 m-0">
+                                                <p class="m-0 p-0">agreeableness +{{item.agreeableness}}</p>
+                                                <p class="m-0 p-0">emotional stablility +{{item.emotional_stablility}}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item w-50">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                        {% if user_choosed_items.chestplate %}
+                                        <img src="{{ user_choosed_items.chestplate.skin.url }}" class="img-fluid" alt="">
+                                        {% else %}
+                                        <img src="{% static 'images/chest-armor.svg' %}" class="img-fluid" alt="">
+                                        {% endif %}
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        {% for item in user_invontory.chestplates.all %}
+                                        {{item.item_name}}
+                                        <div class="row">
+                                            <div class="col-4 p-0 m-0">
+                                                <img src="{{ item.skin.url }}" alt="" class="img-fluid">
+                                                <button class="btn btn-primary pick-btn" item-type="chestplate"
+                                                    item-id="{{item.id}}" {% if item.id == user_choosed_items.chestplate.id %}
+                                                    disabled {% endif %}>Pick</button>
+                                            </div>
+                                            <div class="col-6 m-0">
+                                                <p class="m-0 p-0">agreeableness +{{item.agreeableness}}</p>
+                                                <p class="m-0 p-0">emotional stablility +{{item.emotional_stablility}}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item w-50">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                        {% if user_choosed_items.legging %}
+                                        <img src="{{ user_choosed_items.legging.skin.url }}" class="img-fluid" alt="">
+                                        {% else %}
+                                        <img src="{% static 'images/leg-removebg-preview.png' %}" class="img-fluid" alt="">
+                                        {% endif %}
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        {% for item in user_invontory.leggings.all %}
+                                        {{item.item_name}}
+                                        <div class="row">
+                                            <div class="col-4 p-0 m-0">
+                                                <img src="{{ item.skin.url }}" alt="" class="img-fluid">
+                                                <button class="btn btn-primary pick-btn" item-type="legging"
+                                                    item-id="{{item.id}}" {% if item.id == user_choosed_items.legging.id %}
+                                                    disabled {% endif %}>Pick</button>
+                                            </div>
+                                            <div class="col-6 m-0">
+                                                <p class="m-0 p-0">agreeableness +{{item.agreeableness}}</p>
+                                                <p class="m-0 p-0">emotional stablility +{{item.emotional_stablility}}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item w-50">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                        {% if user_choosed_items.boot %}
+                                        <img src="{{ user_choosed_items.boot.skin.url }}" class="img-fluid" alt="">
+                                        {% else %}
+                                        <img src="{% static 'images/leg-removebg-preview.png' %}" class="img-fluid" alt="">
+                                        {% endif %}
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        {% for item in user_invontory.boots.all %}
+                                        {{item.item_name}}
+                                        <div class="row">
+                                            <div class="col-4 p-0 m-0">
+                                                <img src="{{ item.skin.url }}" alt="" class="img-fluid">
+                                                <button class="btn btn-primary pick-btn" item-type="boot"
+                                                    item-id="{{item.id}}" {% if item.id == user_choosed_items.boot.id %}
+                                                    disabled {% endif %}>Pick</button>
+                                            </div>
+                                            <div class="col-6 m-0">
+                                                <p class="m-0 p-0">agreeableness +{{item.agreeableness}}</p>
+                                                <p class="m-0 p-0">emotional stablility +{{item.emotional_stablility}}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+{% include pages|get_item:'login' %}
+{% include pages|get_item:'register' %}
+{% endif %}
+</div>
+
+
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+    $(window).on('load', () =>{
+        
+        const all_chats = $('.chatsss');
+        console.log(all_chats)
+        all_chats.empty();
+
+        // Пройтись по каждому элементу
+        all_chats.each(function() {
+            const to_user = $(this).attr('user-username'); // Получаем значение атрибута
+            $(this).on('click', function() {
+                // Устанавливаем WebSocket с правильным URL
+                const chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/{{user.username}}_" + to_user + "/");
+
+                chatSocket.onopen = function(e) {
+                    console.log("The connection was set up successfully!");
+                };
+
+                chatSocket.onclose = function(e) {
+                    console.log("Something unexpected happened!");
+                };
+
+                // Обработка ввода сообщения
+                const messageInput = document.querySelector("#id_message_send_input");
+                const messageSendButton = document.querySelector("#id_message_send_button");
+                const messageContainer = document.querySelector("#id_chat_item_container");
+
+                if (messageInput && messageSendButton && messageContainer) {
+                    messageInput.focus();
+                    messageInput.onkeyup = function(e) {
+                        if (e.keyCode == 13) {
+                            messageSendButton.click();
+                        }
+                    };
+
+                    messageSendButton.onclick = function(e) {
+                        const messageInputValue = messageInput.value;
+                        if (messageInputValue.trim() !== "") {
+                            const currentTime = new Date();
+                            const time = currentTime.toLocaleTimeString();
+                            chatSocket.send(JSON.stringify({
+                                message: messageInputValue,
+                                username: "{{user.username}}",
+                                time: time
+                            }));
+                            messageInput.value = ""; // Очищаем поле ввода
+                        }
+                    };
+                }
+
+                // Обработка полученного сообщения
+                chatSocket.onmessage = function(e) {
+                    const data = JSON.parse(e.data);
+                    const div = document.createElement("div");
+                    div.className = (data.username === "{{user.username}}") ? "chat-message right" : "chat-message left";
+                    div.innerHTML = `<div class="message-content">
+                        <span class="message-username">${data.username.charAt(0).toUpperCase() + data.username.slice(1)}</span>
+                        <span class="message-text">${data.message}</span>
+                        <span class="message-timestamp">${data.time}</span>
+                    </div>`;
+                    messageContainer.appendChild(div);
+                    // Скроллим вниз при новом сообщении
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                };
+            });
+        });
+
+    })
+    
+</script>
+<script src="{% static 'js/vis/dist/vis.js' %}"></script>
+
+<script src="{% static 'js/questtree.js' %}"></script>
+<script src="{% static 'js/skilltree.js' %}"></script>
+<script src="{% static 'js/tinder.js' %}"></script>
+<script src="{% static 'js/pick-item.js' %}"></script>
+{% endblock %}

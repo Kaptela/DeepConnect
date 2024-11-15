@@ -1,0 +1,37 @@
+{% load static %}
+
+<div class="modal fade modal-dialog modal-dialog-scrollable" id="modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="sex" required>Sex:</label>
+                <select name="sex" id="sex" class="form-select" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="social_orientation" required>Social Orientation:</label>
+                <select name="social_orientation" class="form-select" id="social_orientation" required>
+                    <option value="Extrovert">Extrovert</option>
+                    <option value="Ambivert">Ambivert</option>
+                    <option value="Introvert">Introvert</option>
+                </select>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="agreeableness">Agreeableness:</label>
+                <input type="range" min="0" max="100" name="agreeableness" id="agreeableness" class="form-range form-range-lg" required/>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="emotional_stablility">Emotional Stablility:</label>
+                <input type="range" min="0" max="100" name="emotional_stablility" id="emotional_stablility" class="form-range form-range-lg" required/>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </div>
+</div>  
